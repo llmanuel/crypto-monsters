@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MyMonsters } from "./component";
+import { getMonstersLook } from "../../getMonsterLooks";
 
 import '../../styles/title.css';
 
@@ -12,10 +13,12 @@ export const MyMonstersContainer = ({ contract, account }) => {
     console.log({ currentMonstersDna });
     const currentMonsters = await Promise.all(currentMonstersDna.map(async (dna) => {
       const monsterData = await contract.methods.getMonsterData(parseInt(dna)).call();
+      const monsterDescription = getMonstersLook(parseInt(monsterData[0]));
       return {
         dna: parseInt(monsterData[0]),
         price: parseInt(monsterData[1]),
-        onSale: monsterData[2]
+        onSale: monsterData[2],
+        ...monsterDescription
       }
     }));
     console.log({ currentMonsters });
@@ -36,7 +39,11 @@ export const MyMonstersContainer = ({ contract, account }) => {
   };
 
   const onSubmitCreate = async () => {
-    await contract.methods.createRandomMonster(1).send({ from: account });
+    const accountValues = account.split('');
+    const monsterDnaValues = [accountValues[2], accountValues[3], accountValues[4], accountValues[5]];
+    const monsterDna = monsterDnaValues.join("");
+    console.log({monsterDna, monsterDnaDecimal: parseInt(monsterDna, 10)})
+    await contract.methods.createRandomMonster(parseInt(monsterDna, 10)).send({ from: account });
     await getMyMonsters();
   };
 

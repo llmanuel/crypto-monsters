@@ -6,10 +6,10 @@ import '../../styles/monsterCard.css';
 
 export const MonsterCard = ({ monster, onSubmitSetOnSale, onSubmitBuyMonster }) => 
   <Card key={monster.dna}>
-    <p className="monsterName">El fantasma de la FADU</p>
+    <p className="monsterName">{monster.name}</p>
     <div className="monsterContainer">
-      <img className="monster" src="./monsters/img/monsters/monster_0.png" />
-      <img className="backgroundImage" src="./monsters/img/backgrounds/0.png" />
+      <img className="monster" src={monster.monsterLooks} />
+      <img className="backgroundImage" src={monster.background} />
     </div>
     <div className="dataContainer">
       <p className="data">DNA   <span className="dataValues">{` ${monster.dna}`}</span></p>
@@ -17,7 +17,7 @@ export const MonsterCard = ({ monster, onSubmitSetOnSale, onSubmitBuyMonster }) 
       {monster.onSale && <p className="dataValues">En venta</p>}
     </div>
     <div className="buttonsContainer">
-      <button className="onSaleButton" onClick={() => onSubmitSetOnSale(monster.dna)}>Poner en venta</button>
+      {onSubmitSetOnSale && <button className="onSaleButton" onClick={() => onSubmitSetOnSale(monster.dna)}>Poner en venta</button>}
       {onSubmitBuyMonster && <button className="buyButton" onClick={() => onSubmitBuyMonster(monster)}>Comprar</button>}
     </div>
   </Card>

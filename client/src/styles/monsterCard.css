@@ -1,5 +1,5 @@
 .monster {
-  width: 300px;
+  width: 60%;
   align-self: center;
   z-index: 1;
   position: absolute;
@@ -8,7 +8,6 @@
 .backgroundImage {
   width: 600px;
   position: relative;
-  /* height: ; */
 }
 
 .monsterContainer {
