@@ -1,0 +1,22 @@
+.menu {
+  height: 80px;
+  width: 100%;
+  background-color: #86BBBD;
+  position: fixed;
+  top: 0; 
+  z-index: 10;
+  box-shadow: 0px 2px rgb(228, 228, 228);
+  display: flex;
+  align-content: center;
+}
+
+.menuButton {
+  color: #FFFF;
+  font-size: 25px;
+  background-color: #86BBBD;
+  border: none;
+}
+
+.menuButton:hover {
+  cursor: pointer;
+}

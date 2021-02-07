@@ -1,0 +1,12 @@
+.card {
+  box-sizing: border-box;
+  color: #40403f;
+  padding: 14px;
+  position: relative;
+  text-decoration: none;
+  background: #fcfcfc;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  padding: 30px MIN(4vw, 30px);
+  margin-bottom: 20px;
+}
