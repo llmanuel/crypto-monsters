@@ -39,11 +39,12 @@ export const MyMonstersContainer = ({ contract, account }) => {
   };
 
   const onSubmitCreate = async () => {
-    const accountValues = account.split('');
+    const accountCopy = account;
+    const accountValues = accountCopy.split('');
     const monsterDnaValues = [accountValues[2], accountValues[3], accountValues[4], accountValues[5]];
     const monsterDna = monsterDnaValues.join("");
-    console.log({monsterDna, monsterDnaDecimal: parseInt(monsterDna, 10)})
-    await contract.methods.createRandomMonster(parseInt(monsterDna, 10)).send({ from: account });
+    console.log({monsterDna, monsterDnaDecimal: parseInt(monsterDna, 16)})
+    await contract.methods.createRandomMonster(parseInt(monsterDna, 16)).send({ from: account });
     await getMyMonsters();
   };
 

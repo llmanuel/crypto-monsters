@@ -55,9 +55,11 @@ contract MonsterFactory {
 
   function getMonstersFromUser() public view returns (uint256[] memory)  {
     uint256[] memory ownerMonstersDnas = new uint256[](ownerMonsterCount[msg.sender]);
+    uint counter = 0;
     for (uint i=0; i < monsters.length; i++) {
       if (monsterToOwner[monsters[i].dna] == msg.sender) {
-        ownerMonstersDnas[i] = monsters[i].dna;
+        ownerMonstersDnas[counter] = monsters[i].dna;
+        counter++;
       }
     }
     return ownerMonstersDnas;
