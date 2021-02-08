@@ -15,7 +15,7 @@ contract MonsterFactory {
 
   mapping(uint256 => address payable) public monsterToOwner;
   mapping(uint256 => uint256) public monsterToIndex;
-  mapping(address => uint256) ownerMonsterCount;
+  mapping(address => uint256) public ownerMonsterCount;
 
   function _createMonster(uint256 _dna) internal {
     monsters.push(Monster(_dna, _dna * 100000 + 1000000, false));
@@ -32,12 +32,13 @@ contract MonsterFactory {
   }
 
   // Transfer ownership of a monster
-  function buyMonster(uint256 _monsterDna) payable external {
+  function buyMonster(uint256 _monsterDna) payable public {
     uint index = monsterToIndex[_monsterDna];
     require(msg.value >= monsters[index].price);
     require(monsters[index].onSale == true);
-    monsterToOwner[_monsterDna].transfer(msg.value);
-    ownerMonsterCount[monsterToOwner[_monsterDna]]--;
+    address payable owner = monsterToOwner[_monsterDna];
+    owner.transfer(msg.value);
+    ownerMonsterCount[owner]--;
     ownerMonsterCount[msg.sender]++;
     monsterToOwner[_monsterDna] = msg.sender;
     monsters[index].onSale = false;

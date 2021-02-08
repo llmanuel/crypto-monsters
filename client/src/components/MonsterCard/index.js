@@ -19,7 +19,7 @@ export const MonsterCard = ({ monster, onSubmitSetOnSale, onSubmitBuyMonster, ac
     </div>
     <div className="buttonsContainer">
       {onSubmitSetOnSale && <button className="onSaleButton" onClick={() => onSubmitSetOnSale(monster.dna)}>Poner en venta</button>}
-      {onSubmitBuyMonster && monster.onSale && monster.owner != account && 
+      {onSubmitBuyMonster && monster.onSale && monster.owner !== account && 
         <button className="buyButton" onClick={() => onSubmitBuyMonster(monster)}>Comprar</button>
       }
     </div>

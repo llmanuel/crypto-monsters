@@ -19,7 +19,7 @@ export const AllMonstersContainer = ({ contract, account }) => {
         dna: parseInt(monsterData[0], 16),
         price: parseInt(monsterData[1]),
         onSale: monsterData[2],
-        owner: monsterData[3],
+        owner: monsterData[3].toUpperCase(),
         ...monsterDescription
       }
     }));
