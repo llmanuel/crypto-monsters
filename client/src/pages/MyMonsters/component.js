@@ -5,7 +5,7 @@ import { Title } from "../../components/Title";
 
 import '../../styles/myMonsters.css';
 
-export const MyMonsters = ({ monsters, onSubmitCreate, onSubmitSetOnSale }) => (
+export const MyMonsters = ({ monsters, onSubmitCreate, onSubmitSetOnSale, account }) => (
   <div className="content">
     <div className="header">
       <Title title="Mis monstruos" />
@@ -17,6 +17,7 @@ export const MyMonsters = ({ monsters, onSubmitCreate, onSubmitSetOnSale }) => (
           key={monster.dna}
           monster={monster}
           onSubmitSetOnSale={onSubmitSetOnSale}
+          account={account}
         />
       );
     })}

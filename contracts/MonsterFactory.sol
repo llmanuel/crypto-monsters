@@ -65,8 +65,8 @@ contract MonsterFactory {
     return ownerMonstersDnas;
   }
 
-  function getMonsterData(uint256 _monsterDna) public view returns (uint256, uint256, bool)  {
+  function getMonsterData(uint256 _monsterDna) public view returns (uint256, uint256, bool, address)  {
     uint index = monsterToIndex[_monsterDna];
-    return (monsters[index].dna, monsters[index].price, monsters[index].onSale);
+    return (monsters[index].dna, monsters[index].price, monsters[index].onSale, monsterToOwner[_monsterDna]);
   }
 }

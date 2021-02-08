@@ -18,6 +18,7 @@ export const MyMonstersContainer = ({ contract, account }) => {
         dna: parseInt(monsterData[0]),
         price: parseInt(monsterData[1]),
         onSale: monsterData[2],
+        owner: monsterData[3],
         ...monsterDescription
       }
     }));
@@ -50,7 +51,7 @@ export const MyMonstersContainer = ({ contract, account }) => {
 
   return (
     <>
-      {finishFetch && <MyMonsters monsters={monsters} onSubmitCreate={onSubmitCreate} onSubmitSetOnSale={onSubmitSetOnSale} />}
+      {finishFetch && <MyMonsters monsters={monsters} onSubmitCreate={onSubmitCreate} onSubmitSetOnSale={onSubmitSetOnSale} account={account} />}
     </>
   );
 };

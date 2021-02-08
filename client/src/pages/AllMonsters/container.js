@@ -19,6 +19,7 @@ export const AllMonstersContainer = ({ contract, account }) => {
         dna: parseInt(monsterData[0], 16),
         price: parseInt(monsterData[1]),
         onSale: monsterData[2],
+        owner: monsterData[3],
         ...monsterDescription
       }
     }));
@@ -35,14 +36,15 @@ export const AllMonstersContainer = ({ contract, account }) => {
   },[]);
 
   const onSubmitBuyMonster = async (monster) => {
+    console.log({account, price: monster.price});
     await contract.methods.buyMonster(monster.dna)
-      .send({ from: account, value: monster.price });
+      .send({ from: account, value: monster.price + 100 });
     await getAllMonsters();
   };
 
   return (
     <>
-      {finishFetch && <AllMonsters monsters={monsters} onSubmitBuyMonster={onSubmitBuyMonster} />}
+      {finishFetch && <AllMonsters monsters={monsters} onSubmitBuyMonster={onSubmitBuyMonster} account={account}/>}
     </>
   );
 };

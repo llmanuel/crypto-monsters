@@ -14,7 +14,7 @@ export const Home = ({ contract, account }) => {
 
   return (
     <div className="appContainer">
-      <Menu onClickMyMonsters={onClickMyMonsters} onClickAllMonsters={onClickAllMonsters} />
+      <Menu onClickMyMonsters={onClickMyMonsters} onClickAllMonsters={onClickAllMonsters} account={account} />
       {!allMonstersOpen && <MyMonsters contract={contract} account={account} />}
       {allMonstersOpen && <AllMonsters contract={contract} account={account} />}
     </div>
