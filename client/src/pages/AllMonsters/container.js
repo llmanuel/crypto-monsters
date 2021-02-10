@@ -16,10 +16,10 @@ export const AllMonstersContainer = ({ contract, account }) => {
       const monsterData = await contract.methods.getMonsterData(parseInt(dna)).call();
       const monsterDescription = getMonstersLook(parseInt(monsterData[0]));
       return {
-        dna: parseInt(monsterData[0], 16),
+        dna: parseInt(monsterData[0]).toString(16),
         price: parseInt(monsterData[1]),
         onSale: monsterData[2],
-        owner: monsterData[3].toUpperCase(),
+        owner: monsterData[3],
         ...monsterDescription
       }
     }));
@@ -36,8 +36,8 @@ export const AllMonstersContainer = ({ contract, account }) => {
   },[]);
 
   const onSubmitBuyMonster = async (monster) => {
-    console.log({account, price: monster.price});
-    await contract.methods.buyMonster(monster.dna)
+    console.log({dnaAlComprar: parseInt(monster.dna, 16)});
+    await contract.methods.buyMonster(parseInt(monster.dna, 16), monster.owner, account)
       .send({ from: account, value: monster.price + 100 });
     await getAllMonsters();
   };

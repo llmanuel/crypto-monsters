@@ -58,7 +58,7 @@ class App extends Component {
     // console.log({ state: this.state });
     return (
       <>
-      {contract && accounts && <Home contract={contract} account={accounts[0].toUpperCase()} />}
+      {contract && accounts && <Home contract={contract} account={accounts[0]} />}
       </>
     );
   }

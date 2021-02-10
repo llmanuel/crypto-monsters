@@ -22,26 +22,28 @@ contract MonsterFactory {
     monstersDna.push(_dna);
     monsterToIndex[_dna] = monsters.length - 1;
     monsterToOwner[_dna] = msg.sender;
-    ownerMonsterCount[msg.sender]++;
+    ownerMonsterCount[msg.sender] = 1;
     emit NewMonster(_dna);
   }
 
-  function createRandomMonster(uint256 _dna) public {
+  function createMonster(uint256 _dna) public {
     require(_dna <= 65535);
+    require(ownerMonsterCount[msg.sender] == 0);
     _createMonster(_dna);
   }
 
   // Transfer ownership of a monster
-  function buyMonster(uint256 _monsterDna) payable public {
+  function buyMonster(uint256 _monsterDna, address payable _monsterOwner, address payable _newOwner) payable public {
     uint index = monsterToIndex[_monsterDna];
     require(msg.value >= monsters[index].price);
     require(monsters[index].onSale == true);
-    address payable owner = monsterToOwner[_monsterDna];
-    owner.transfer(msg.value);
-    ownerMonsterCount[owner]--;
-    ownerMonsterCount[msg.sender]++;
+    require(msg.sender == _newOwner);
+    require(_monsterOwner != _newOwner);
+    ownerMonsterCount[_monsterOwner]--;
+    ownerMonsterCount[_newOwner]++;
     monsterToOwner[_monsterDna] = msg.sender;
     monsters[index].onSale = false;
+    _monsterOwner.transfer(msg.value);
   }
 
   function setOnSale(uint256 _monsterDna) public {
