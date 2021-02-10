@@ -14,7 +14,6 @@ export const MyMonstersContainer = ({ contract, account }) => {
     const currentMonsters = await Promise.all(currentMonstersDna.map(async (dna) => {
       const monsterData = await contract.methods.getMonsterData(parseInt(dna)).call();
       const monsterDescription = getMonstersLook(parseInt(monsterData[0]));
-      console.log({ monsterData });
       return {
         dna: parseInt(monsterData[0]).toString(16),
         price: parseInt(monsterData[1]),
@@ -23,7 +22,6 @@ export const MyMonstersContainer = ({ contract, account }) => {
         ...monsterDescription
       }
     }));
-    console.log({ currentMonsters });
     setMonsters(Array.isArray(currentMonsters) ? currentMonsters : [currentMonsters]);
   };
 
@@ -36,7 +34,6 @@ export const MyMonstersContainer = ({ contract, account }) => {
   },[]);
 
   const onSubmitSetOnSale = async (dna) => {
-    console.log({dna: parseInt(dna,16)});
     await contract.methods.setOnSale(parseInt(dna,16)).send({ from: account });
     await getMyMonsters();
   };
@@ -46,7 +43,6 @@ export const MyMonstersContainer = ({ contract, account }) => {
     const accountValues = accountCopy.split('');
     const monsterDnaValues = [accountValues[2], accountValues[3], accountValues[4], accountValues[5]];
     const monsterDna = monsterDnaValues.join("");
-    console.log({monsterDna, monsterDnaDecimal: parseInt(monsterDna, 16)})
     await contract.methods.createMonster(parseInt(monsterDna, 16)).send({ from: account });
     await getMyMonsters();
   };

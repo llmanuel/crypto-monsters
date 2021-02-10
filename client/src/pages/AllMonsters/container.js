@@ -11,7 +11,6 @@ export const AllMonstersContainer = ({ contract, account }) => {
 
   const getAllMonsters = async () => {
     const currentMonstersDna =  await contract.methods.getMonsters().call();
-    console.log({ currentMonstersDna });
     const currentMonsters = await Promise.all(currentMonstersDna.map(async (dna) => {
       const monsterData = await contract.methods.getMonsterData(parseInt(dna)).call();
       const monsterDescription = getMonstersLook(parseInt(monsterData[0]));
@@ -23,7 +22,6 @@ export const AllMonstersContainer = ({ contract, account }) => {
         ...monsterDescription
       }
     }));
-    console.log({ currentMonsters });
     setMonsters(Array.isArray(currentMonsters) ? currentMonsters : [currentMonsters]);
   };
 
@@ -36,7 +34,6 @@ export const AllMonstersContainer = ({ contract, account }) => {
   },[]);
 
   const onSubmitBuyMonster = async (monster) => {
-    console.log({dnaAlComprar: parseInt(monster.dna, 16)});
     await contract.methods.buyMonster(parseInt(monster.dna, 16), monster.owner, account)
       .send({ from: account, value: monster.price + 100 });
     await getAllMonsters();
